@@ -1,0 +1,38 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.score{
+    color: violet;
+}
+
+.timer{
+    position: absolute;
+    top: 0;
+    right:20px;
+}
+
+.welcome{
+    margin: 80px auto;
+    text-align: center;
+    display: block;
+    width: 45%;
+    
+}
+
+.welcome h2{
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.welcome p {
+    font-size: 20px;
+}
+
+.welcome button{
+    padding: 10px;
+    font-size: 20px;
+    background-color: purple;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+}
