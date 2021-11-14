@@ -6,7 +6,7 @@ startEl.addEventListener("click", function() {
     // click the start button to show questions and start countdown
     welcomeEl.innerHTML= "";
     questions();
-    // countdown();
+    countdown();
   });
 
 
@@ -19,7 +19,7 @@ function countdown(){
         if (timeLeft > 0){
             timerEl.textContent = "Timer: " + timeLeft;
             timeLeft--
-            console.log(timeLeft)
+            // console.log(timeLeft)
         }
         else {
             timerEl.textContent = "Timer: " + timeLeft;
@@ -51,13 +51,30 @@ var questionCh = ["choice1", "choice2", "choice3", "choice4", "choice5", "choice
 var correctAns = ["choice1", "choice6", "choice11"];
 var score = 0;
 var i=0;
-var timeLeft = 60;
+var timeLeft = 99999;
+console.log(questionSt.length);
+
+function answerCallback(evt) {
+    var liEl = evt.target;
+    if (liEl.textContent == correctAns[i]){
+        answerEl.textContent = "Correct!"
+        score = score + 20;
+    }
+    else {
+        answerEl.textContent = "Wrong!"
+        score = score - 10;
+        timeLeft = timeLeft - 10;
+    }
+    
+    liEl.removeEventListener('click', answerCallback);
+    i = i + 1;
+    questions();
+}
 
 function questions(){
     console.log(i)
+    console.log(score)
     if (i < questionSt.length){
-    // answerEl.textContent = "";
-        countdown()
         questionContentEl.appendChild(questionEl);
         questionContentEl.appendChild(listEl);
         questionContentEl.appendChild(answerEl);
@@ -72,79 +89,27 @@ function questions(){
         li2.textContent = questionCh[4*i+1];
         li3.textContent = questionCh[4*i+2];
         li4.textContent = questionCh[4*i+3];
-        console.log(li1.textContent);
-        console.log(correctAns[i])
 
-        li1.addEventListener("click",function(){
-            if (li1.textContent == correctAns[i]){
-            answerEl.textContent = "Correct!"
-            score = score + 20;
-            }
-            else {
-                answerEl.textContent = "Wrong!"
-                score = score - 10;
-                timeLeft = timeLeft - 10;
-            }
-            i = i+1;
-            
-            questions();
-        })
+        li1.addEventListener("click", answerCallback)
 
-        li2.addEventListener("click",function(){
-            if (li2.textContent === correctAns[i]){
-            answerEl.textContent = "Correct!"
-            score = score + 20;
-            }
-            else {
-                answerEl.textContent = "Wrong!"
-                score = score - 10;
-                timeLeft = timeLeft - 10;
-            }
-            i = i+1;
-            questions();
-        })
+        li2.addEventListener("click", answerCallback)
 
-        li3.addEventListener("click",function(){
-            if (li3.textContent === correctAns[i]){
-            answerEl.textContent = "Correct!"
-            score = score + 20;
-            }
-            else {
-                answerEl.textContent = "Wrong!"
-                score = score - 10;
-                timeLeft = timeLeft - 10;
-            }
-            i = i+1;
-            questions();
-        })
-        console.log(li3.textContent === correctAns[i])
+        li3.addEventListener("click", answerCallback)
 
-        li4.addEventListener("click",function(){
-            if (li4.textContent === correctAns[i]){
-            answerEl.textContent = "Correct!"
-            score = score + 20;
-            }
-            else {
-                answerEl.textContent = "Wrong!"
-                score = score - 10;
-                timeLeft = timeLeft - 10;
-            }
-            i = i+1;
-            questions();
-        })
-        
-        console.log(timeLeft)
-        
+        li4.addEventListener("click", answerCallback)   
     }
     else{
-        return
-    }
-        
-     
-
+        finalResult();
+    }   
 }
 
 // Final Result Display
 function finalResult(){
-
+    questionEl.textContent = "All Done!"
+    listEl.innerHTML = "";
+    answerEl.textContent = "";
+    var resultSt = document.createElement('p');
+    var initial = document.createElement('div');
+    resultSt.textContent = "Your Final Score is: " + score;
+    questionContentEl.appendChild(resultSt);
 }                
