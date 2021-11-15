@@ -1,4 +1,6 @@
 // Welcome Section
+var timerEl = document.getElementById("countdown");
+
 
 function welcome(){
     var startEl = document.createElement("button");
@@ -9,6 +11,7 @@ function welcome(){
     welcomeTitle.textContent = "Code Quiz Challenge"
     welcomeP.textContent ="Try to answer the following code-related questions within the itme limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!"
     startEl.textContent = "Start Quiz"
+    timerEl.textContent = "Timer: 0"
 
     welcomeEl.appendChild(welcomeTitle);
     welcomeEl.appendChild(welcomeP);
@@ -20,6 +23,7 @@ function welcome(){
         timeLeft = 60;
         i = 0;
         score = 0;
+        
         questions();
         countdown();
       });
@@ -30,11 +34,12 @@ welcome();
 
 
 // Timer
-var timerEl = document.getElementById("countdown");
 
 function countdown(){
-    var timeInterval = setInterval(function(){
+    var timeInterval = "";
+    timeInterval = setInterval(function(){
         if (i === questionSt.length){
+            clearInterval(timeInterval);
             return
         }
         else if (timeLeft > 0){
@@ -183,6 +188,10 @@ var scoreEl = document.querySelector("#high-score");
 
 function scoreBoard(){
     resultEl.innerHTML = "";
+    // endingEl.textContent = "";
+    // resultSt.textContent = "";
+    // initialLabel.textContent = "";
+    // submitButton.textContent = "";
     var scoreTitle = document.createElement("h2");
     var backButton = document.createElement("button");
     var clearButton = document.createElement("button");
