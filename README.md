@@ -25,4 +25,5 @@ https://github.com/zhanzhanLiu/code-quiz
 ## Future Work (Issues)
 As time is limited for me this week, the application has the following issues needed to be fixed: 
 * High score board needs to imporve to store multiple user data
+* Need to add event listener to view High Score
 * Improve outlook through CSS
