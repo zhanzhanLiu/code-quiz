@@ -146,6 +146,7 @@ function questions(){
 
 // Final Result Display
 var resultEl = document.querySelector("#final-result")
+userScore = []; //Create Array to store user scores
 function finalResult(){
     questionContentEl.innerHTML = "";
     var endingEl = document.createElement("h2");
@@ -164,21 +165,20 @@ function finalResult(){
     var submitButton = document.createElement('button');
     resultEl.appendChild(submitButton);
     submitButton.textContent = "Submit";
-    // submitButton.setAttribute("id", "submit-button");
 
     submitButton.addEventListener("click", function(event) {
         event.preventDefault();
     
         console.log(initialInput.value);
         playerInitial = initialInput.value;
-
+        
         var user = {
             initial: initialInput.value.trim(),
             playerScore: score
           };
-      
+        userScore.push(user);
         // set new submission to local storage 
-        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("userScore", JSON.stringify(userScore));
         scoreBoard();
       });
 }  
@@ -196,22 +196,26 @@ function scoreBoard(){
     var backButton = document.createElement("button");
     var clearButton = document.createElement("button");
     var scoreList = document.createElement("ol");
-    var nameList = document.createElement("li");
-    user = localStorage.getItem("user");
-    user = JSON.parse(user);
-    console.log(user);
+    // var nameList = document.createElement("li");
+    userScore = localStorage.getItem("userScore");
+    userScore = JSON.parse(userScore);
+    console.log(userScore);
 
     scoreTitle.textContent = "High scores";
     backButton.textContent = "Go back";
     clearButton.textContent = "Clear high scores";
-    nameList.textContent = user.initial + " - " + user.playerScore;
 
     scoreEl.appendChild(scoreTitle);
     scoreEl.appendChild(scoreList);
     scoreEl.appendChild(backButton);
     scoreEl.appendChild(clearButton);
-    scoreList.appendChild(nameList);
-
+    // scoreList.appendChild(nameList);
+    for (i=0;i<userScore.length;i++){
+        var li= document.createElement("li");
+        li.textContent = userScore[i].initial + " - " + userScore[i].playerScore;
+        scoreList.appendChild(li);
+    }
+    
     backButton.addEventListener("click",function(){
         scoreEl.innerHTML = "";
         welcome();
@@ -219,11 +223,4 @@ function scoreBoard(){
     clearButton.addEventListener("click", function(){
         scoreList.innerHTML = "";
     })
-
-
-
-    
-
-
-
 }
