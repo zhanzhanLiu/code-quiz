@@ -96,3 +96,43 @@ body{
     color: white;
     border-radius: 10px;
 }
+
+#high-score {
+    margin: 80px auto;
+    text-align: left;
+    display: block;
+    width: 45%;
+}
+
+#high-score h2{
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#high-score ol li{
+    counter-increment: list;
+    list-style-type: none;
+    border: 1px sollid purple;
+    background-color: purple;
+    padding: 12px;
+    font-size: 18px;
+    color: white;
+    /* display: block; */
+    /* position: relative; */
+
+}
+
+#high-score ol li::before{
+    content: counter(list) ". ";
+    background-color: purple;
+}
+
+#high-score button{
+    padding: 10px;
+    margin: 20px;
+    font-size: 18px;
+    background-color: purple;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+}
