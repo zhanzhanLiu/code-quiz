@@ -1,13 +1,32 @@
 // Welcome Section
-var startEl = document.querySelector("#start");
+
+var startEl = document.createElement("button");
+var welcomeTitle = document.createElement("h2");
+var welcomeP = document.createElement("p");
 var welcomeEl = document.querySelector("#welcome");
+startEl.setAttribute("id", "start")
+welcomeTitle.textContent = "Code Quiz Challenge"
+welcomeP.textContent ="Try to answer the following code-related questions within the itme limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!"
+startEl.textContent = "Start Quiz"
+
 // Attach event listener to quiz start button
-startEl.addEventListener("click", function() {
-    // click the start button to show questions and start countdown
-    welcomeEl.innerHTML= "";
-    questions();
-    countdown();
-  });
+function welcome(){
+    welcomeEl.appendChild(welcomeTitle);
+    welcomeEl.appendChild(welcomeP);
+    welcomeEl.appendChild(startEl);
+
+    startEl.addEventListener("click", function() {
+        // click the start button to show questions and start countdown
+        welcomeEl.innerHTML= "";
+        timeLeft = 60;
+        i = 0;
+        questions();
+        countdown();
+      });
+}
+
+welcome();
+
 
 
 // Timer
@@ -16,7 +35,10 @@ var timerEl = document.getElementById("countdown");
 function countdown(){
     // var timeLeft = 5;
     var timeInterval = setInterval(function(){
-        if (timeLeft > 0){
+        if (i === questionSt.length){
+            return
+        }
+        else if (timeLeft > 0){
             timerEl.textContent = "Timer: " + timeLeft;
             timeLeft--
             // console.log(timeLeft)
@@ -45,18 +67,25 @@ var li4 = document.createElement("li");
 var answerEl = document.createElement("p");
 
 // Questions and choices
+var question1 = "Commonly used data types DO Not Include: "
+var choice1 = "strings"; var choice2 = "booleans"; var choice3 = "alerts"; var choice4 = "numbers";
 
-var questionSt = ["question1", "question2", "question3"];
-var questionCh = ["choice1", "choice2", "choice3", "choice4", "choice5", "choice6", "choice7", "choice8", "choice9", "choice10", "choice11", "choice12"];
-var correctAns = ["choice1", "choice6", "choice11"];
+var question2 = "Arrays in JavaScript can be used to store _________."
+var choice5 = "numbers and strings"; var choice6 = "other arrays"; var choice7 = "booleans"; var choice8 = "all of the above";
+
+var question3 = "A very useful tool used during dvelopment and debugging for printing content to the debugger is:"
+var choice9 = "JavaScript"; var choice10 = "terminal/bash"; var choice11 = "for loops"; var choice12 = "console.log"
+var questionSt = [question1, question2, question3];
+var questionCh = [choice1, choice2, choice3, choice4, choice5, choice6, choice7, choice8, choice9, choice10, choice11, choice12];
+var correctAns = ["alerts", "all of the above", "console.log"];
 var score = 0;
 var i=0;
-var timeLeft = 99999;
+var timeLeft = 60;
 console.log(questionSt.length);
 
 function answerCallback(evt) {
     var liEl = evt.target;
-    if (liEl.textContent == correctAns[i]){
+    if (liEl.textContent === correctAns[i]){
         answerEl.textContent = "Correct!"
         score = score + 20;
     }
@@ -78,6 +107,8 @@ function questions(){
         questionContentEl.appendChild(questionEl);
         questionContentEl.appendChild(listEl);
         questionContentEl.appendChild(answerEl);
+
+
         listEl.appendChild(li1);
         listEl.appendChild(li2);
         listEl.appendChild(li3);
@@ -104,12 +135,83 @@ function questions(){
 }
 
 // Final Result Display
+var resultEl = document.querySelector("#final-result")
 function finalResult(){
-    questionEl.textContent = "All Done!"
-    listEl.innerHTML = "";
-    answerEl.textContent = "";
+    questionContentEl.innerHTML = "";
+    var endingEl = document.createElement("h2");
+    endingEl.textContent = "All Done!"
     var resultSt = document.createElement('p');
     var initial = document.createElement('div');
+    var initialLabel = document.createElement('label')
+    var initialInput = document.createElement('input')
     resultSt.textContent = "Your Final Score is: " + score;
-    questionContentEl.appendChild(resultSt);
-}                
+    resultEl.appendChild(resultSt);
+    resultEl.appendChild(initial);
+    initial.appendChild(initialLabel);
+    initial.appendChild(initialInput);
+    initialLabel.textContent = "Please enter your initial: "
+    initialInput.setAttribute("id", "player-initial")
+    var submitButton = document.createElement('button');
+    resultEl.appendChild(submitButton);
+    submitButton.textContent = "Submit";
+    // submitButton.setAttribute("id", "submit-button");
+
+    submitButton.addEventListener("click", function(event) {
+        event.preventDefault();
+    
+        console.log(initialInput.value);
+        playerInitial = initialInput.value;
+
+        var user = {
+            initial: initialInput.value.trim(),
+            playerScore: score
+          };
+      
+        // set new submission to local storage 
+        localStorage.setItem("user", JSON.stringify(user));
+        scoreBoard();
+      });
+}  
+
+// High Scores
+var scoreEl = document.querySelector("#high-score");
+
+function scoreBoard(){
+    resultEl.innerHTML = "";
+    var scoreTitle = document.createElement("h2");
+    var backButton = document.createElement("button");
+    var clearButton = document.createElement("button");
+    var scoreList = document.createElement("ol");
+    var nameList = document.createElement("li");
+    user = localStorage.getItem("user");
+    user = JSON.parse(user);
+    console.log(user);
+
+    scoreTitle.textContent = "High scores";
+    backButton.textContent = "Go back";
+    clearButton.textContent = "Clear high scores";
+    nameList.textContent = user.initial + " - " + user.playerScore;
+
+    scoreEl.appendChild(scoreTitle);
+    scoreEl.appendChild(scoreList);
+    scoreEl.appendChild(backButton);
+    scoreEl.appendChild(clearButton);
+    scoreList.appendChild(nameList);
+
+    backButton.addEventListener("click",function(){
+        scoreEl.innerHTML = "";
+        timeLeft = 60;
+        i = 0;
+        welcome();
+    });
+    clearButton.addEventListener("click", function(){
+        scoreList.innerHTML = "";
+    })
+
+
+
+    
+
+
+
+}

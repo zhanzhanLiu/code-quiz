@@ -72,3 +72,27 @@ body{
     background-color: purple;
 }
 
+#final-result{
+    margin: 80px auto;
+    text-align: left;
+    display: block;
+    width: 45%;
+}
+
+#final-result h2{
+    font-weight: bold;
+    font-size: 30px;
+}
+
+#final-result p{
+    font-size: 20px;
+}
+
+#final-result button{
+    padding: 10px;
+    font-size: 20px;
+    background-color: purple;
+    cursor: pointer;
+    color: white;
+    border-radius: 10px;
+}
