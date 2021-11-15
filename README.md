@@ -26,5 +26,4 @@ https://github.com/zhanzhanLiu/code-quiz
 As time is limited for me this week, the application has the following issues needed to be fixed: 
 * High score board needs to imporve to store multiple user data
 * Timer of the second time quiz runs faster
-* Result score will show multiple times for second time quiz
 * Improve outlook through CSS

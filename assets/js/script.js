@@ -1,25 +1,25 @@
 // Welcome Section
 
-var startEl = document.createElement("button");
-var welcomeTitle = document.createElement("h2");
-var welcomeP = document.createElement("p");
-var welcomeEl = document.querySelector("#welcome");
-startEl.setAttribute("id", "start")
-welcomeTitle.textContent = "Code Quiz Challenge"
-welcomeP.textContent ="Try to answer the following code-related questions within the itme limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!"
-startEl.textContent = "Start Quiz"
-
-// Attach event listener to quiz start button
 function welcome(){
+    var startEl = document.createElement("button");
+    var welcomeTitle = document.createElement("h2");
+    var welcomeP = document.createElement("p");
+    var welcomeEl = document.querySelector("#welcome");
+    startEl.setAttribute("id", "start")
+    welcomeTitle.textContent = "Code Quiz Challenge"
+    welcomeP.textContent ="Try to answer the following code-related questions within the itme limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!"
+    startEl.textContent = "Start Quiz"
+
     welcomeEl.appendChild(welcomeTitle);
     welcomeEl.appendChild(welcomeP);
     welcomeEl.appendChild(startEl);
-
+// Attach event listener to quiz start button
     startEl.addEventListener("click", function() {
         // click the start button to show questions and start countdown
         welcomeEl.innerHTML= "";
         timeLeft = 60;
         i = 0;
+        score = 0;
         questions();
         countdown();
       });
@@ -33,7 +33,6 @@ welcome();
 var timerEl = document.getElementById("countdown");
 
 function countdown(){
-    // var timeLeft = 5;
     var timeInterval = setInterval(function(){
         if (i === questionSt.length){
             return
@@ -130,6 +129,12 @@ function questions(){
         li4.addEventListener("click", answerCallback)   
     }
     else{
+        questionEl.textContent = "";
+        li1.textContent = "";
+        li2.textContent = "";
+        li3.textContent = "";
+        li4.textContent = "";
+        answerEl.textContent = "";
         finalResult();
     }   
 }
@@ -200,8 +205,6 @@ function scoreBoard(){
 
     backButton.addEventListener("click",function(){
         scoreEl.innerHTML = "";
-        timeLeft = 60;
-        i = 0;
         welcome();
     });
     clearButton.addEventListener("click", function(){
