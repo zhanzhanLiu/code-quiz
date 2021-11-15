@@ -112,7 +112,6 @@ function questions(){
         questionContentEl.appendChild(listEl);
         questionContentEl.appendChild(answerEl);
 
-
         listEl.appendChild(li1);
         listEl.appendChild(li2);
         listEl.appendChild(li3);
@@ -215,12 +214,14 @@ function scoreBoard(){
         li.textContent = userScore[i].initial + " - " + userScore[i].playerScore;
         scoreList.appendChild(li);
     }
-    
+
     backButton.addEventListener("click",function(){
         scoreEl.innerHTML = "";
         welcome();
     });
     clearButton.addEventListener("click", function(){
         scoreList.innerHTML = "";
+        userScore = []; 
+        localStorage.setItem("userScore", JSON.stringify(userScore));//clear local storage;
     })
 }
